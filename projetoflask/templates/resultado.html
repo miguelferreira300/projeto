@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 style="color: #FFD700;">Resenha salva com sucesso!</h2>
+    <p><strong>O seu registo para "{{ titulo }}":</strong> {{ resenha }}</p>
+
+    <hr style="border-color: #2A2D34; margin: 20px 0;">
+
+    <h3>A nossa recomendação para si:</h3>
+
+    <div style="display: flex; align-items: flex-start; gap: 20px; margin-top: 15px; background-color: #121212; padding: 15px; border-radius: 8px;">
+        <img src="{{ recomendacao.capa_url }}" 
+             alt="Capa do livro {{ recomendacao.titulo }}" 
+             onerror="this.onerror=null; this.src='https://via.placeholder.com/150x220/2A2D34/E0E0E0?text=Sem+Capa';"
+             style="max-width: 150px; border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.5);">
+        
+        <div>
+            <p>Já que gostou desse estilo, que tal adicionar <strong>{{ recomendacao.titulo }}</strong>, da autoria de <strong>{{ recomendacao.autor }}</strong>, à sua lista de leitura?</p>
+        </div>
+    </div>
+
+    <br>
+    <a href="/resenha" style="display: inline-block; margin-top: 10px; color: #9D4EDD; text-decoration: none; font-weight: bold;">&larr; Cadastrar outra resenha</a>
+{% endblock %}
