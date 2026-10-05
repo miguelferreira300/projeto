@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+    <h3>{{ 'Editar resenha' if editando else 'Cadastrar Nova Resenha' }}</h3>
+
+    <form method="POST">
+        <label>Título do Livro ou HQ:</label>
+        <input type="text" name="titulo" value="{{ dados.titulo or '' }}" maxlength="200"
+               placeholder="Ex: Batman: O Cavaleiro das Trevas" required>
+
+        <label>Gênero (ex: ficção científica, fantasia, terror):</label>
+        <input type="text" name="genero" value="{{ dados.genero or '' }}" maxlength="60"
+               placeholder="Ex: quadrinhos" required>
+
+        <label>A sua Resenha:</label>
+        <textarea name="resenha" rows="6" minlength="10" maxlength="3000" required
+                  placeholder="O que achou da história, dos personagens, da arte? Deixe aqui a sua opinião...">{{ dados.texto or '' }}</textarea>
+
+        <button type="submit">{{ 'Salvar alterações' if editando else 'Salvar e Receber Indicação' }}</button>
+    </form>
+    {% if editando %}<p class="suave" style="text-align:center"><a href="{{ url_for('resenhas') }}">Cancelar</a></p>{% endif %}
+{% endblock %}

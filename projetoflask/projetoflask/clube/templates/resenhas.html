@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+    <h3>Minhas resenhas</h3>
+
+    {% for r in resenhas %}
+    <div class="resenha">
+        <h3>{{ r.titulo }}</h3>
+        <div class="suave">{{ r.genero }} · {{ r.criado_em|data_br }}</div>
+        <p>{{ r.texto }}</p>
+        <div class="acoes">
+            <a class="editar" href="{{ url_for('editar_resenha', resenha_id=r.id) }}">Editar</a>
+            <a href="{{ url_for('indicacao', resenha_id=r.id) }}">Ver indicação</a>
+            <form method="POST" action="{{ url_for('excluir_resenha', resenha_id=r.id) }}"
+                  onsubmit="return confirm('Excluir esta resenha? Não dá para desfazer.');">
+                <button class="perigo" type="submit">Excluir</button>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <p style="text-align:center">Você ainda não tem resenhas.</p>
+    {% endfor %}
+
+    <a class="botao" href="{{ url_for('nova_resenha') }}">+ Nova resenha</a>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Acesso ao Sistema</h2>
+    <form method="POST">
+        <label>Usuário:</label>
+        <input type="text" name="usuario" required autofocus maxlength="30">
+
+        <label>Senha:</label>
+        <input type="password" name="senha" required>
+
+        <button type="submit">Entrar</button>
+    </form>
+    <hr>
+    <p class="suave" style="text-align:center">Primeiro acesso? <a href="{{ url_for('registro') }}">Criar conta</a></p>
+{% endblock %}
