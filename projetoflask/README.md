@@ -21,7 +21,7 @@ Testes (sem internet): `python -m unittest discover -s tests -v`
 | `banco.py` | **todo o SQL**: `CREATE TABLE` e o CRUD (`INSERT`, `SELECT`, `UPDATE`, `DELETE`) |
 | `app.py` | rotas, login/registro e validação dos formulários |
 | `recomendacao.py` | busca na Open Library e escolha do livro indicado |
-| `templates/` | páginas HTML (mesmo visual do projeto original) |
+| `templates/` | páginas HTML |
 
 ## Banco de dados
 
