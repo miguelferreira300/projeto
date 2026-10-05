@@ -37,7 +37,5 @@ resenhas (id, usuario_id -> usuarios.id, titulo, genero, texto, criado_em)
 3. Editar/excluir sempre com `AND usuario_id = ?` — ninguém mexe na resenha de outro.
 4. `PRAGMA foreign_keys = ON` a cada conexão (o SQLite vem com isso desligado).
 
-## Antes de publicar na internet
 
-Defina `SECRET_KEY` (variável de ambiente) e não use `debug=True`.
-Ainda não há proteção CSRF nem limite de tentativas de login (ficaram de fora do MVP).
+
