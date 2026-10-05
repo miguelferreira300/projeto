@@ -1,4 +1,4 @@
-# Comunidade de Resenhas Geek — MVP
+# Comunidade de Resenhas MVP
 
 Flask + SQLite (módulo `sqlite3`, **sem ORM** em arquitetura *Active Record* e *Context Manager*) + indicação de livro pela Open Library (com suporte adaptativo a proxy de rede).
 
