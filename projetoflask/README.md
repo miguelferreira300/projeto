@@ -30,12 +30,7 @@ usuarios (id, nome UNIQUE, senha_hash)
 resenhas (id, usuario_id -> usuarios.id, titulo, genero, texto, criado_em)
 ```
 
-## Regras de ouro do SQL neste projeto
 
-1. Valores sempre em `?` (`WHERE id = ?`, params à parte) — **nunca** montar SQL com f-string.
-2. Escritas dentro de `with con:` — commit se deu certo, rollback se deu erro.
-3. Editar/excluir sempre com `AND usuario_id = ?` — ninguém mexe na resenha de outro.
-4. `PRAGMA foreign_keys = ON` a cada conexão (o SQLite vem com isso desligado).
 
 
 
