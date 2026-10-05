@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Criar conta</h2>
+    <form method="POST">
+        <label>Usuário (3 a 30 caracteres):</label>
+        <input type="text" name="usuario" required minlength="3" maxlength="30" autofocus>
+
+        <label>Senha (mínimo 6 caracteres):</label>
+        <input type="password" name="senha" required minlength="6">
+
+        <button type="submit">Criar conta e entrar</button>
+    </form>
+    <hr>
+    <p class="suave" style="text-align:center">Já tem conta? <a href="{{ url_for('login') }}">Entrar</a></p>
+{% endblock %}
