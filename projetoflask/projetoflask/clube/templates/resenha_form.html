@@ -11,11 +11,21 @@
         <input type="text" name="genero" value="{{ dados.genero or '' }}" maxlength="60"
                placeholder="Ex: quadrinhos" required>
 
+        <label>Sua nota:</label>
+        <div class="estrelas-input" role="radiogroup" aria-label="Nota de 1 a 5 estrelas">
+            {% for n in range(5, 0, -1) %}
+                <input type="radio" id="nota{{ n }}" name="nota" value="{{ n }}"
+                       {{ 'checked' if dados.nota == n }} {{ 'required' if loop.first }}>
+                <label for="nota{{ n }}" title="{{ n }} estrela{{ '' if n == 1 else 's' }}">★</label>
+            {% endfor %}
+        </div>
+
         <label>A sua Resenha:</label>
         <textarea name="resenha" rows="6" minlength="10" maxlength="3000" required
                   placeholder="O que achou da história, dos personagens, da arte? Deixe aqui a sua opinião...">{{ dados.texto or '' }}</textarea>
 
-        <button type="submit">{{ 'Salvar alterações' if editando else 'Salvar e Receber Indicação' }}</button>
+        <button type="submit">{{ 'Salvar alterações' if editando else 'Salvar e Receber Indicações' }}</button>
+        {% if not editando %}<p class="suave dica">Limite: {{ limite_por_hora }} novas resenhas por hora.</p>{% endif %}
     </form>
-    {% if editando %}<p class="suave" style="text-align:center"><a href="{{ url_for('resenhas') }}">Cancelar</a></p>{% endif %}
+    {% if editando %}<p class="suave" style="text-align:center"><a href="{{ url_for('resenhas', pagina=pagina) }}">Cancelar</a></p>{% endif %}
 {% endblock %}

@@ -1,32 +1,48 @@
 {% extends "base.html" %}
+{% from "_macros.html" import estrelas %}
 {% block content %}
-    <h2 style="color: #FFD700;">Resenha salva com sucesso!</h2>
-    <p><strong>O seu registo para "{{ resenha.titulo }}":</strong> {{ resenha.texto }}</p>
+    <h2 style="color: #FFD700;">Indicações para você</h2>
+    <p><strong>A sua resenha de "{{ resenha.titulo }}"</strong> {{ estrelas(resenha.nota) }}<br>{{ resenha.texto }}</p>
 
     <hr>
 
     <h3>A nossa recomendação para si:</h3>
 
-    {% if recomendacao %}
+    {% if recomendacoes is none %}
     <div class="recomendacao-box">
-        {% if recomendacao.capa_url %}
-            <img src="{{ recomendacao.capa_url }}" alt="Capa do livro {{ recomendacao.titulo }}"
+        <p>Não consegui buscar indicações agora. A Open Library pode estar fora do ar ou a ligação à internet falhou. Tente de novo em instantes.</p>
+    </div>
+    {% elif recomendacoes %}
+    <p class="suave">Já que gostou desse estilo, que tal adicionar um destes à sua lista de leitura?</p>
+    {% for livro in recomendacoes %}
+    <div class="recomendacao-box">
+        {% if livro.capa_url %}
+            <img src="{{ livro.capa_url }}" alt="Capa do livro {{ livro.titulo }}"
                  onerror="this.outerHTML='<div class=&quot;sem-capa&quot;>Sem capa</div>'">
         {% else %}
             <div class="sem-capa">Sem capa</div>
         {% endif %}
         <div>
-            <p>Já que gostou desse estilo, que tal adicionar <strong>{{ recomendacao.titulo }}</strong>, da autoria de <strong>{{ recomendacao.autor }}</strong>, à sua lista de leitura?</p>
+            <p><strong>{{ livro.titulo }}</strong></p>
+            <p class="suave">de {{ livro.autor }}{% if livro.ano %} · {{ livro.ano }}{% endif %}</p>
+            {% if livro.nota_media %}
+            <p class="suave">★ {{ livro.nota_media }} na Open Library ({{ '{:,}'.format(livro.n_notas).replace(',', '.') }} avaliaç{{ 'ão' if livro.n_notas == 1 else 'ões' }})</p>
+            {% endif %}
         </div>
     </div>
+    {% endfor %}
     {% else %}
     <div class="recomendacao-box">
-        <p>Não consegui encontrar uma indicação agora. A Open Library pode estar fora do ar, ou o gênero "{{ resenha.genero }}" não foi reconhecido. Tente de novo ou edite o gênero da resenha.</p>
+        <p>Você já viu todas as indicações disponíveis para o gênero "{{ resenha.genero }}". Edite o gênero da resenha ou cadastre outra para receber novas sugestões.</p>
     </div>
     {% endif %}
 
     <div class="links">
-        <a href="{{ url_for('indicacao', resenha_id=resenha.id) }}">🎲 Outra indicação</a>
+        {% if recomendacoes %}
+            <a class="botao" href="{{ url_for('indicacao', resenha_id=resenha.id) }}">🎲 Novas indicações</a>
+        {% elif recomendacoes is none %}
+            <a class="botao" href="{{ url_for('indicacao', resenha_id=resenha.id) }}">🔄 Tentar de novo</a>
+        {% endif %}
         <a href="{{ url_for('nova_resenha') }}">&larr; Cadastrar outra resenha</a>
         <a href="{{ url_for('resenhas') }}">Ver minhas resenhas</a>
     </div>
