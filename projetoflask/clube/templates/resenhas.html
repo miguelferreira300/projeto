@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% from "_macros.html" import estrelas %}
+{% block content %}
+    <h3>Minhas resenhas</h3>
+    {% if total %}<p class="suave" style="text-align:center">{{ total }} resenha{{ '' if total == 1 else 's' }}</p>{% endif %}
+
+    {% for r in resenhas %}
+    <div class="resenha">
+        <h3>{{ r.titulo }}</h3>
+        <div class="meta">
+            {{ estrelas(r.nota) }}
+            <span class="suave">{{ r.genero }} · {{ r.criado_em|data_br }}</span>
+        </div>
+        <p>{{ r.texto }}</p>
+        <div class="acoes">
+            <a class="editar" href="{{ url_for('editar_resenha', resenha_id=r.id, pagina=pagina) }}">Editar</a>
+            <a href="{{ url_for('indicacao', resenha_id=r.id) }}">Ver indicações</a>
+            <form method="POST" action="{{ url_for('excluir_resenha', resenha_id=r.id) }}"
+                  onsubmit="return confirm('Excluir esta resenha? Não dá para desfazer.');">
+                <input type="hidden" name="pagina" value="{{ pagina }}">
+                <button class="perigo" type="submit">Excluir</button>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <p style="text-align:center">Você ainda não tem resenhas.</p>
+    {% endfor %}
+
+    {% if paginas > 1 %}
+    <nav class="paginacao" aria-label="Paginação">
+        {% if pagina > 1 %}<a href="{{ url_for('resenhas', pagina=pagina - 1) }}">&larr; Anterior</a>{% else %}<span class="vazio">&larr; Anterior</span>{% endif %}
+        <span class="suave info">Página {{ pagina }} de {{ paginas }}</span>
+        {% if pagina < paginas %}<a href="{{ url_for('resenhas', pagina=pagina + 1) }}">Próxima &rarr;</a>{% else %}<span class="vazio">Próxima &rarr;</span>{% endif %}
+    </nav>
+    {% endif %}
+
+    <a class="botao" href="{{ url_for('nova_resenha') }}">+ Nova resenha</a>
+{% endblock %}
