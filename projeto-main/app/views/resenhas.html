@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% from "_macros.html" import estrelas %}
+{% block content %}
+    <h3>Minhas resenhas</h3>
+
+    <form class="filtros" method="GET" action="{{ url_for('resenhas.listar') }}">
+        <div class="campo largo">
+            <label for="q">Buscar</label>
+            <input type="search" id="q" name="q" value="{{ busca }}" placeholder="título ou texto da resenha">
+        </div>
+        <div class="campo">
+            <label for="genero">Gênero</label>
+            <select id="genero" name="genero">
+                <option value="">Todos</option>
+                {% for g in generos %}<option value="{{ g }}" {{ 'selected' if g|lower == genero_atual|lower }}>{{ g }}</option>{% endfor %}
+            </select>
+        </div>
+        <div class="campo">
+            <label for="nota">Nota</label>
+            <select id="nota" name="nota">
+                <option value="">Todas</option>
+                {% for n in range(5, 0, -1) %}<option value="{{ n }}" {{ 'selected' if nota_atual == n }}>{{ n }} ★</option>{% endfor %}
+            </select>
+        </div>
+        <button type="submit">Filtrar</button>
+        {% if filtros %}<a class="botao" href="{{ url_for('resenhas.listar') }}">Limpar</a>{% endif %}
+    </form>
+
+    {% if total %}<p class="suave centro">{{ total }} resenha{{ '' if total == 1 else 's' }}{{ ' encontrada' ~ ('' if total == 1 else 's') if filtros }}</p>{% endif %}
+
+    {% for r in resenhas %}
+    <div class="resenha">
+        <h3>{{ r.titulo }}</h3>
+        <div class="meta">
+            {{ estrelas(r.nota) }}
+            <span class="suave">{{ r.genero }} · {{ r.criado_em|data_br }}</span>
+        </div>
+        <p>{{ r.texto }}</p>
+        <div class="acoes">
+            <a class="editar" href="{{ url_for('resenhas.editar', resenha_id=r.id, pagina=pagina) }}">Editar</a>
+            <a href="{{ url_for('resenhas.indicacao', resenha_id=r.id) }}">Ver indicações</a>
+            <form method="POST" action="{{ url_for('resenhas.excluir', resenha_id=r.id) }}"
+                  data-confirmar="Excluir esta resenha? Não dá para desfazer.">
+                <input type="hidden" name="pagina" value="{{ pagina }}">
+                <button class="perigo" type="submit">Excluir</button>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <p class="centro">{{ 'Nenhuma resenha encontrada com esses filtros.' if filtros else 'Você ainda não tem resenhas.' }}</p>
+    {% endfor %}
+
+    {% if paginas > 1 %}
+    <nav class="paginacao" aria-label="Paginação">
+        {% if pagina > 1 %}<a href="{{ url_for('resenhas.listar', pagina=pagina - 1, **filtros) }}">&larr; Anterior</a>{% else %}<span class="vazio">&larr; Anterior</span>{% endif %}
+        <span class="suave info">Página {{ pagina }} de {{ paginas }}</span>
+        {% if pagina < paginas %}<a href="{{ url_for('resenhas.listar', pagina=pagina + 1, **filtros) }}">Próxima &rarr;</a>{% else %}<span class="vazio">Próxima &rarr;</span>{% endif %}
+    </nav>
+    {% endif %}
+
+    <a class="botao" href="{{ url_for('resenhas.nova') }}">+ Nova resenha</a>
+{% endblock %}

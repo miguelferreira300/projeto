@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Acesso ao Sistema</h2>
+    <form method="POST" action="{{ url_for('auth.login') }}">
+        <label>Usuário:</label>
+        <input type="text" name="usuario" required maxlength="30" value="{{ ultimo_usuario }}" {{ '' if ultimo_usuario else 'autofocus' }}>
+
+        <label>Senha:</label>
+        <input type="password" name="senha" required {{ 'autofocus' if ultimo_usuario }}>
+
+        <button type="submit">Entrar</button>
+    </form>
+    <hr>
+    <p class="suave centro">Primeiro acesso? <a href="{{ url_for('auth.registro') }}">Criar conta</a></p>
+{% endblock %}
