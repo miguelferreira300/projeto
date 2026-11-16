@@ -1,0 +1,163 @@
+:root, [data-tema="escuro"] {
+    --bg-principal: #121212;
+    --bg-secundario: #2A2D34;
+    --acao-neon: #9D4EDD;
+    --acao-hover: #b774ea;
+    --texto-claro: #E0E0E0;
+    --destaque-amarelo: #FFD700;
+    --erro: #f87171;
+    --sucesso: #4ade80;
+    --info: #60a5fa;
+    --borda: #444;
+    --borda-suave: #3a3d45;
+    --suave: #9aa0aa;
+    --estrela-off: #555;
+    --sombra: rgba(0, 0, 0, 0.5);
+}
+[data-tema="claro"] {
+    --bg-principal: #f3f0fa;
+    --bg-secundario: #ffffff;
+    --acao-neon: #7b2cbf;
+    --acao-hover: #5a189a;
+    --texto-claro: #22202b;
+    --destaque-amarelo: #d99a00;
+    --erro: #c62828;
+    --sucesso: #1b7f3b;
+    --info: #1d5fb4;
+    --borda: #c9c3d6;
+    --borda-suave: #e0dbea;
+    --suave: #6b6578;
+    --estrela-off: #cfc9da;
+    --sombra: rgba(60, 30, 100, 0.18);
+}
+* { box-sizing: border-box; }
+body {
+    background-color: var(--bg-principal);
+    color: var(--texto-claro);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+.container {
+    background-color: var(--bg-secundario);
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px var(--sombra);
+    width: 100%;
+    max-width: 640px;
+    margin: auto 0;
+}
+h2, h3 { color: var(--acao-neon); text-align: center; margin-top: 0; text-shadow: 0 0 8px rgba(157, 78, 221, 0.3); }
+a { color: var(--acao-neon); text-decoration: none; transition: 0.3s; }
+a:hover { color: var(--acao-hover); text-shadow: 0 0 5px var(--acao-neon); }
+form { display: flex; flex-direction: column; gap: 15px; }
+label { font-size: 0.9em; font-weight: bold; }
+input, textarea, select {
+    background-color: var(--bg-principal); border: 1px solid var(--borda); color: var(--texto-claro);
+    padding: 10px; border-radius: 6px; font-size: 1em; font-family: inherit; transition: border 0.3s;
+}
+input:focus, textarea:focus, select:focus { outline: none; border-color: var(--acao-neon); box-shadow: 0 0 8px rgba(157, 78, 221, 0.5); }
+button, .botao {
+    background-color: transparent; color: var(--acao-neon); border: 2px solid var(--acao-neon);
+    padding: 12px; font-size: 1.05em; font-weight: bold; border-radius: 6px; cursor: pointer;
+    transition: all 0.3s ease; margin-top: 10px; text-align: center; display: block;
+}
+button:hover, .botao:hover { background-color: var(--acao-neon); color: #fff; box-shadow: 0 0 15px var(--acao-neon); text-shadow: none; }
+hr { border: 0; height: 1px; background: var(--borda); margin: 25px 0; }
+
+/* barra do topo */
+.topo { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px 16px;
+        border-bottom: 1px solid var(--borda); padding-bottom: 10px; margin-bottom: 20px; font-size: 0.95em; }
+.topo nav { display: flex; gap: 16px; flex-wrap: wrap; align-items: baseline; }
+.topo .sair { color: var(--destaque-amarelo); font-weight: bold; }
+
+/* botão de tema (cookie) */
+.tema-form { position: fixed; top: 12px; right: 12px; display: block; }
+.tema-form button { margin: 0; padding: 6px 12px; font-size: 0.85em; background: var(--bg-secundario); }
+
+/* flash messages categorizadas */
+.aviso { background: var(--bg-principal); border-left: 4px solid var(--destaque-amarelo); padding: 10px 14px; border-radius: 6px; margin-bottom: 14px; }
+.aviso-success { border-left-color: var(--sucesso); }
+.aviso-danger  { border-left-color: var(--erro); }
+.aviso-warning { border-left-color: var(--destaque-amarelo); }
+.aviso-info    { border-left-color: var(--info); }
+
+/* cartões (resenhas e itens da lista) */
+.resenha {
+    background: var(--bg-principal);
+    border: 2px solid var(--acao-neon);
+    border-left-width: 6px;
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 12px rgba(157, 78, 221, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+    transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
+}
+.resenha:hover { border-color: var(--acao-hover); box-shadow: 0 0 22px rgba(157, 78, 221, 0.65); transform: translateY(-2px); }
+.resenha h3 { text-align: left; margin-bottom: 6px; }
+.suave { color: var(--suave); font-size: 0.85em; }
+.resenha .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; }
+.resenha p { white-space: pre-wrap; margin: 12px 0; }
+.acoes { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; border-top: 1px solid var(--borda-suave); padding-top: 12px; }
+.acoes form { display: inline; }
+.acoes button { margin: 0; padding: 4px 12px; font-size: 0.9em; }
+.acoes .editar { padding: 4px 12px; font-size: 0.9em; margin: 0; border: 2px solid var(--acao-neon); border-radius: 6px; }
+.perigo { color: var(--erro); border-color: var(--erro); }
+.perigo:hover { background-color: var(--erro); box-shadow: 0 0 15px var(--erro); }
+
+/* selos de status / prioridade */
+.selo { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 0.8em; font-weight: bold; border: 1px solid currentColor; }
+.selo-quero_ler { color: var(--info); }
+.selo-lendo { color: var(--destaque-amarelo); }
+.selo-lido { color: var(--sucesso); }
+.prio-1 { color: var(--erro); }
+.prio-2 { color: var(--destaque-amarelo); }
+.prio-3 { color: var(--suave); }
+
+/* filtros / busca */
+.filtros { flex-direction: row; flex-wrap: wrap; align-items: flex-end; gap: 10px; margin-bottom: 20px;
+           background: var(--bg-principal); padding: 12px; border-radius: 8px; border: 1px solid var(--borda-suave); }
+.filtros .campo { display: flex; flex-direction: column; gap: 4px; flex: 1 1 140px; }
+.filtros .campo.largo { flex: 2 1 200px; }
+.filtros button, .filtros .botao { margin: 0; padding: 9px 14px; font-size: 0.95em; }
+
+/* estrelas (exibição) */
+.estrelas { font-size: 1.2em; letter-spacing: 2px; white-space: nowrap; }
+.estrelas .on { color: var(--destaque-amarelo); text-shadow: 0 0 6px rgba(255, 215, 0, 0.5); }
+.estrelas .off { color: var(--estrela-off); }
+
+/* estrelas (escolha da nota): radios escondidos + labels ★. Sem JavaScript. */
+.estrelas-input { position: relative; display: flex; flex-direction: row-reverse; justify-content: center; gap: 6px; }
+.estrelas-input input { position: absolute; opacity: 0; width: 1px; height: 1px; padding: 0; margin: 0; border: 0; pointer-events: none; }
+.estrelas-input label { font-size: 2.3rem; line-height: 1; color: var(--estrela-off); cursor: pointer; font-weight: normal; transition: color 0.15s, transform 0.15s; }
+.estrelas-input label:hover { transform: scale(1.15); }
+.estrelas-input label:hover,
+.estrelas-input label:hover ~ label,
+.estrelas-input input:checked ~ label { color: var(--destaque-amarelo); text-shadow: 0 0 8px rgba(255, 215, 0, 0.5); }
+.estrelas-input input:focus-visible + label { outline: 2px solid var(--acao-neon); border-radius: 4px; }
+.dica { text-align: center; margin: 4px 0 0; }
+
+/* paginação */
+.paginacao { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin: 6px 0 22px; }
+.paginacao a { border: 2px solid var(--acao-neon); border-radius: 6px; padding: 6px 14px; font-weight: bold; }
+.paginacao a:hover { background: var(--acao-neon); color: #fff; box-shadow: 0 0 12px var(--acao-neon); text-shadow: none; }
+.paginacao .vazio { visibility: hidden; padding: 6px 14px; border: 2px solid transparent; }
+.paginacao .info { text-align: center; }
+
+/* recomendação */
+.recomendacao-box { display: flex; align-items: flex-start; gap: 18px; margin-top: 16px; background: var(--bg-principal);
+                    padding: 14px; border-radius: 10px; border: 2px solid var(--acao-neon); border-left-width: 6px;
+                    box-shadow: 0 0 12px rgba(157, 78, 221, 0.3); }
+.recomendacao-box img, .sem-capa { width: 100px; min-width: 100px; height: 150px; border-radius: 5px; box-shadow: 2px 2px 8px rgba(0,0,0,0.8); object-fit: cover; }
+.sem-capa { background: var(--bg-secundario); color: var(--suave); display: flex; align-items: center; justify-content: center; text-align: center; font-size: 0.9em; }
+.recomendacao-box p { margin: 0 0 6px; }
+.recomendacao-box form { gap: 0; }
+.recomendacao-box button { padding: 6px 12px; font-size: 0.9em; margin-top: 6px; }
+.links { display: flex; flex-direction: column; gap: 8px; margin-top: 22px; }
+.links .botao { margin-top: 0; }
+.centro { text-align: center; }
+@media (max-width: 480px) { .container { padding: 22px 18px; } .recomendacao-box { flex-direction: column; } }
